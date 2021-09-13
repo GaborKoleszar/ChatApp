@@ -10,8 +10,10 @@ import com.carpenter.data.MessageItem
 import com.carpenter.databinding.MessageItemBinding
 import com.carpenter.ui.user1
 
-class MessageAdapter(val messages: MutableList<MessageItem>) :
+class MessageAdapter :
     RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
+
+    private var mMessages: MutableList<MessageItem> = mutableListOf<MessageItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val binding = MessageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +21,7 @@ class MessageAdapter(val messages: MutableList<MessageItem>) :
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-        val currentMessageItem = messages[position]
+        val currentMessageItem = mMessages[position]
         holder.sender.text = currentMessageItem.sender
         holder.message.text = currentMessageItem.message
         holder.timestamp.text = currentMessageItem.timestamp.toString()
@@ -32,7 +34,11 @@ class MessageAdapter(val messages: MutableList<MessageItem>) :
 
     }
 
-    override fun getItemCount() = messages.size
+    fun setMessages(messages: MutableList<MessageItem>) {
+        mMessages = messages
+    }
+
+    override fun getItemCount() = mMessages.size
 
     class MessageViewHolder(binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val sender: TextView = binding.senderTextView

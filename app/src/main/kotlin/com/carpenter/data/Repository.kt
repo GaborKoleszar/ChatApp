@@ -1,5 +1,7 @@
 package com.carpenter.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.sql.Timestamp
@@ -10,18 +12,25 @@ class Repository {
         Firebase.database.setPersistenceEnabled(true)
     }
 
-    private val listOfMessages = mutableListOf<MessageItem>()
+    private val mutableListOfMessages: MutableList<MessageItem> = mutableListOf()
+    private val messagesListLiveData = MutableLiveData<MutableList<MessageItem>>()
 
-    fun createDummyList(): MutableList<MessageItem> {
-        listOfMessages.add(MessageItem("Sanyi", "Szia!", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Feri", "Szevasz!", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Sanyi", "Hogy vagy?", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Feri", "Jól, köszi! És te?", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Sanyi", "Én is!", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Feri", "Na jólvan akkor!", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Sanyi", "Ja!", Timestamp(System.currentTimeMillis())))
-        listOfMessages.add(MessageItem("Feri", "Szevasz!", Timestamp(System.currentTimeMillis())))
-        return listOfMessages
+    fun createDummyList(): LiveData<MutableList<MessageItem>> {
+        mutableListOfMessages.add(MessageItem("Sanyi", "Szia!", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Feri", "Szevasz!", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Sanyi", "Hogy vagy?", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Feri", "Jól, köszi! És te?", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Sanyi", "Én is!", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Feri", "Na jólvan akkor!", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Sanyi", "Ja!", Timestamp(System.currentTimeMillis())))
+        mutableListOfMessages.add(MessageItem("Feri", "Szevasz!", Timestamp(System.currentTimeMillis())))
+        messagesListLiveData.apply { value = mutableListOfMessages }
+        return messagesListLiveData
+    }
+
+    fun addMessage(messageItem: MessageItem)   {
+        mutableListOfMessages.add(messageItem)
+        messagesListLiveData.apply { value = mutableListOfMessages }
     }
 
     fun loadMessages(): MutableList<MessageItem> {

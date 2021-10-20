@@ -28,6 +28,7 @@ class Repository {
         return messagesListLiveData
     }
 
+    //TODO Update to background thread
     fun addMessage(messageItem: MessageItem)   {
         mutableListOfMessages.add(messageItem)
         messagesListLiveData.apply { value = mutableListOfMessages }
@@ -36,6 +37,12 @@ class Repository {
     fun loadMessages(): MutableList<MessageItem> {
         //TODO return data from firebase
         return mutableListOf<MessageItem>()
+    }
+
+    //TODO Update to background thread
+    fun deleteMessage(messageToDelete: MessageItem) {
+        mutableListOfMessages.remove(messageToDelete)
+        messagesListLiveData.apply { value = mutableListOfMessages }
     }
 
 }

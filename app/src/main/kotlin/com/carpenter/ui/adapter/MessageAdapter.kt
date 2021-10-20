@@ -44,6 +44,6 @@ class MessageAdapter :
         val sender: TextView = binding.senderTextView
         val message: TextView = binding.messageTextView
         val timestamp: TextView = binding.timestampTextView
-        val root: LinearLayout = binding.root
+        val root: LinearLayout = binding.root as LinearLayout
     }
 }

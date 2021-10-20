@@ -14,7 +14,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        dataBinding true
     }
 
     defaultConfig {
@@ -54,7 +54,6 @@ dependencies {
 
     //CardView
     implementation "androidx.cardview:cardview:1.0.0"
-
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData

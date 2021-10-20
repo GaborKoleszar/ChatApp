@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carpenter.R
-import com.carpenter.data.ChatViewModel
+import com.carpenter.data.viewmodel.ChatViewModel
 import com.carpenter.data.MessageItem
-import com.carpenter.data.Repository
 import com.carpenter.databinding.FragmentChatBinding
 import com.carpenter.ui.adapter.MessageAdapter
 import java.sql.Timestamp
